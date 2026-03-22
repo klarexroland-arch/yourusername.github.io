@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project 2 Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+          /* Container setup */
+.project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Title spacing */
+.portfolio-title {
+    margin-bottom: 40px;
+    font-size: 28px;
+    text-align: center;
+}
+
+/* 2x2 grid for images */
+.project-images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 260px);
+    gap: 50px;
+    justify-content: center;
+}
+
+/* Image styling */
+.project-images-grid img {
+    width: 300px;
+    height: 360px;
+    object-fit: cover;       /* removes black bars */
+    object-position: center; /* keeps center visible */
+    border-radius: 8px;
+    border: 2px solid #ff7a00;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.project-images-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* Video styling */
+video {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+/* Back button styling */
+button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background: #ff6f61;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4b3a;
+}
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="portfolio-title">2nd Quarter Project</div>
+
+    <div class="project-container">
+        <div class="project-images-grid">
+            <img src="v1.jpg" alt="Image 1">
+            <img src="v2.jpg" alt="Image 2">
+            <img src="v3.jpg" alt="Image 3">
+            <img src="v4.jpg" alt="Image 4">
+        </div>
+
+        <video controls>
+            <source src="set-up computer networks.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <button onclick="location.href='page3.html'">Back to Skills</button>
+    </div>
+</div>
+
+</body>
+</html>

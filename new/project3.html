@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project 3</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      .project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Title spacing */
+.portfolio-title {
+    margin-bottom: 40px;
+    font-size: 28px;
+    text-align: center;
+}
+
+/* Make images vertical (1 per row) */
+.project-images-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 35px;
+    justify-items: center;
+}
+
+/* Image styling */
+.project-images-grid img {
+    width: 500px;      /* adjust if needed */
+    height: auto;      /* keeps landscape shape */
+    object-fit: contain;
+    border-radius: 8px;
+    border: 2px solid #ff7a00;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.project-images-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* Video styling */
+video {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+/* Back button styling */
+button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background: #ff6f61;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4b3a;
+}
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="portfolio-title">3rd Quarter Project</div>
+
+    <div class="project-container">
+        <div class="project-images-grid">
+            <img src="v.1.jpg" alt="Image 1">
+            <img src="v.2.jpg" alt="Image 2">
+            <img src="v.3.jpg" alt="Image 3">
+            <img src="v.4.jpg" alt="Image 4">
+        </div>
+
+        <video controls>
+            <source src="Set-up computer servers.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <button onclick="location.href='page3.html'">Back to Skills</button>
+    </div>
+</div>
+
+</body>
+</html>

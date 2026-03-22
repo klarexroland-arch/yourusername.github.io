@@ -1,0 +1,708 @@
+/* =======================
+   BODY + FIRE BACKGROUND (NO LINES)
+======================= */
+body{
+  font-family: Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: radial-gradient(circle at 50% 60%, #2a0700 0%, #120200 60%, #060000 100%);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fire glow layer (BEHIND everything + doesn't block clicks) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -25%;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 25% 80%, rgba(255,140,0,0.45), transparent 55%),
+    radial-gradient(circle at 75% 78%, rgba(255,50,0,0.35), transparent 58%),
+    radial-gradient(circle at 55% 25%, rgba(255,210,0,0.22), transparent 55%),
+    conic-gradient(from 210deg at 50% 70%,
+      rgba(255,180,0,0.16),
+      rgba(255,80,0,0.12),
+      rgba(255,220,0,0.10),
+      rgba(255,60,0,0.14),
+      rgba(255,180,0,0.16)
+    );
+
+  filter: blur(18px) saturate(140%);
+  opacity: 0.95;
+  animation: firePulse 7s ease-in-out infinite;
+}
+
+/* Extra soft fire haze (also BEHIND + doesn't block) */
+body::after{
+  content:"";
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 35% 90%, rgba(255,140,0,0.18), transparent 60%),
+    radial-gradient(circle at 70% 88%, rgba(255,40,0,0.16), transparent 62%),
+    radial-gradient(circle at 50% 20%, rgba(255,210,0,0.10), transparent 60%);
+  filter: blur(22px);
+  opacity: 0.7;
+  animation: fireDrift 10s ease-in-out infinite;
+}
+
+/* =======================
+   MAIN BOX
+======================= */
+.login-box, .content{
+  background: linear-gradient(180deg, rgba(20,5,0,0.78), rgba(8,2,0,0.62));
+  padding: 30px 60px 30px 30px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,123,0,0.65);
+
+  box-shadow:
+    0 0 18px rgba(255,123,0,0.30),
+    0 0 34px rgba(255,60,0,0.22),
+    0 12px 30px rgba(0,0,0,0.70);
+
+  backdrop-filter: blur(10px);
+
+  max-width: 750px;
+  width: 100%;
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 1;
+
+  animation: popIn 0.7s ease-out both, floatBox 4.2s ease-in-out infinite;
+}
+
+/* =======================
+   INPUTS (WORKING)
+======================= */
+input, textarea{
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+
+  border-radius: 10px;
+  border: 2px solid rgba(255,123,0,0.55);
+  background: rgba(255,120,0,0.12);
+  color: white;
+
+  outline: none;
+  transition: 0.25s ease;
+}
+
+input::placeholder, textarea::placeholder{
+  color: rgba(255,255,255,0.65);
+}
+
+input:focus, textarea:focus{
+  border-color: rgba(255,210,0,0.85);
+  background: rgba(255,180,0,0.14);
+  box-shadow: 0 0 0 4px rgba(255,110,0,0.18), 0 0 18px rgba(255,200,0,0.12);
+}
+
+/* =======================
+   TITLE
+======================= */
+.center{ text-align:center; }
+
+.portfolio-title{
+  background: linear-gradient(90deg,#ffd000,#ff8a00,#ff3a00,#ffd000);
+  padding: 10px 25px;
+  border-radius: 12px;
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 0 16px rgba(255,123,0,0.28);
+}
+
+/* =======================
+   CENTERED BUTTONS + FIRE BUTTONS (WORKING)
+======================= */
+.button-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+button{
+  position: relative;
+  overflow: hidden;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+
+  background: linear-gradient(90deg,#ffd000,#ff8a00,#ff3a00,#ff8a00,#ffd000);
+  background-size: 220% 220%;
+
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 14px rgba(255,140,0,0.25),
+    0 0 18px rgba(255,40,0,0.18);
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease, background-position 0.4s ease;
+}
+
+button:hover{
+  background-position: 100% 0%;
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.10);
+
+  box-shadow:
+    0 0 18px rgba(255,180,0,0.45),
+    0 0 30px rgba(255,60,0,0.38);
+}
+
+button:active{
+  transform: translateY(0) scale(0.99);
+}
+
+/* Shine sweep */
+button::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-60%;
+  width:40%;
+  height:100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.75), transparent);
+  transform: skewX(-25deg);
+  opacity: 0;
+  pointer-events: none;
+}
+button:hover::before{
+  opacity: 1;
+  animation: shine 0.8s ease;
+}
+
+/* =======================
+   BIODATA (TEXT LEFT, IMAGE RIGHT)
+======================= */
+.bio-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.bio-container div{
+  text-align: left;
+  flex: 1;
+}
+
+.profile-img{
+  width: 200px;            /* keep original size */
+  border-radius: 10px;
+  border: 2px solid rgba(255,123,0,0.65);
+  box-shadow: 0 0 14px rgba(255,123,0,0.30);
+}
+
+/* =======================
+   VIDEO (SMALLER)
+======================= */
+video{
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 2px solid rgba(255,123,0,0.45);
+}
+
+/* =======================
+   PROGRESS BAR (shine won't cover text)
+======================= */
+.progress-bar{
+  background: rgba(255,120,0,0.20);
+  height: 30px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.progress-fill{
+  height: 100%;
+  width: 0;
+
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+
+  background: linear-gradient(90deg,#ffd000,#ff8a00,#ff3a00);
+  color: white;
+  font-weight: bold;
+
+  position: relative;
+  transition: width 1s ease-in-out;
+}
+
+.progress-fill span{
+  position: relative;
+  z-index: 2;
+}
+
+.progress-fill::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-45%;
+  width:45%;
+  height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: skewX(-20deg);
+  animation: barShine 2.5s infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* =======================
+   PROJECTS (smaller pics like before)
+======================= */
+.projects-row{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.project{
+  text-align: center;
+  width: 200px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(255,80,0,0.12);
+  border: 2px solid rgba(255,123,0,0.45);
+  border-radius: 12px;
+
+  box-shadow: 0 0 10px rgba(255,123,0,0.22);
+  transition: 0.25s ease;
+}
+
+.project:hover{
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(255,123,0,0.35);
+}
+
+.project img{
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Grid images */
+.project-images-grid{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+  justify-items: center;
+  margin-bottom: 20px;
+}
+
+.project-images-grid img{
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid rgba(255,123,0,0.35);
+}
+
+/* =======================
+   ANIMATIONS
+======================= */
+@keyframes firePulse{
+  0%   { transform: translate3d(-1%, 1%, 0) rotate(-1deg); opacity: 0.88; }
+  50%  { transform: translate3d(1%, -1%, 0) rotate(1deg); opacity: 1; }
+  100% { transform: translate3d(-1%, 1%, 0) rotate(-1deg); opacity: 0.88; }
+}
+
+@keyframes fireDrift{
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes popIn{
+  from{ opacity: 0; transform: translateY(12px) scale(0.985); }
+  to  { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatBox{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-6px); }
+  100%{ transform: translateY(0px); }
+}
+
+@keyframes shine{
+  0%{ left:-60%; }
+  100%{ left:140%; }
+}
+
+@keyframes barShine{
+  0%{ left:-45%;opacity:0; }
+  30%{ opacity:1; }
+  60%{ left:120%;opacity:0.8; }
+  100%{ left:120%;opacity:0; }
+}
+
+/* PROJECT ROW */
+
+.projects-row{
+display:flex;
+gap:20px;
+justify-content:center;
+align-items:flex-start;
+flex-wrap:wrap; /* THIS makes project 4 go below */
+}
+
+
+/* PROJECT CARD */
+
+.project{
+text-align:center;
+width:200px;
+height:250px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+background: rgba(255,80,0,0.12);
+border:2px solid rgba(255,123,0,0.45);
+border-radius:12px;
+
+box-shadow:0 0 10px rgba(255,123,0,0.22);
+transition:0.25s ease;
+
+text-decoration:none;
+color:white;
+}
+
+
+/* PROJECT IMAGE */
+
+.project img{
+width:180px;
+height:160px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:10px;
+
+border:2px solid rgba(255,123,0,0.35);
+}
+
+
+.project:hover{
+transform:scale(1.05);
+box-shadow:0 0 18px rgba(255,123,0,0.35);
+}
+
+/* =======================
+   TOP RIGHT CONTROL BUTTONS
+======================= */
+.top-controls{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 9999;
+  flex-wrap: wrap;
+}
+
+/* =======================
+   BIODATA MORE VERTICAL SPACE
+======================= */
+.bio-container div{
+  line-height: 1.9;
+}
+
+.bio-container div p{
+  margin-bottom: 10px;
+}
+
+/* =======================
+   LOW DETAIL MODE
+======================= */
+body.low-detail{
+  background: #0b0604 !important;
+}
+
+/* remove animated fire background completely */
+body.low-detail::before,
+body.low-detail::after{
+  content: none !important;
+  animation: none !important;
+  background: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+/* stop floating / heavy effects */
+body.low-detail .login-box,
+body.low-detail .content{
+  animation: none !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.45) !important;
+}
+
+/* remove strong glow from title */
+body.low-detail .portfolio-title{
+  animation: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.28) !important;
+}
+
+/* reduce all button effects */
+body.low-detail button{
+  transition: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.30) !important;
+}
+
+body.low-detail button:hover{
+  transform: none !important;
+  filter: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.30) !important;
+}
+
+body.low-detail button::before{
+  content: none !important;
+  animation: none !important;
+}
+
+/* remove input glow */
+body.low-detail input,
+body.low-detail textarea{
+  transition: none !important;
+}
+
+body.low-detail input:focus,
+body.low-detail textarea:focus{
+  box-shadow: none !important;
+}
+
+/* remove progress shine */
+body.low-detail .progress-fill::after{
+  content: none !important;
+  animation: none !important;
+}
+
+/* reduce image / card glow */
+body.low-detail .project,
+body.low-detail .profile-img,
+body.low-detail video,
+body.low-detail .project-images-grid img{
+  transition: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.28) !important;
+}
+
+body.low-detail .project:hover,
+body.low-detail .project-images-grid img:hover{
+  transform: none !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.28) !important;
+}
+
+/* =======================
+   DARK MODE
+======================= */
+body.dark-mode{
+  background: radial-gradient(circle at 50% 60%, #0c0c0c 0%, #050505 60%, #000000 100%);
+  color: white;
+}
+
+body.dark-mode::before{
+  background:
+    radial-gradient(circle at 25% 80%, rgba(120,120,120,0.20), transparent 55%),
+    radial-gradient(circle at 75% 78%, rgba(80,80,80,0.16), transparent 58%),
+    radial-gradient(circle at 55% 25%, rgba(170,170,170,0.10), transparent 55%),
+    conic-gradient(from 210deg at 50% 70%,
+      rgba(180,180,180,0.08),
+      rgba(90,90,90,0.08),
+      rgba(200,200,200,0.06),
+      rgba(70,70,70,0.08),
+      rgba(180,180,180,0.08)
+    );
+}
+
+body.dark-mode::after{
+  background:
+    radial-gradient(circle at 35% 90%, rgba(140,140,140,0.08), transparent 60%),
+    radial-gradient(circle at 70% 88%, rgba(90,90,90,0.07), transparent 62%),
+    radial-gradient(circle at 50% 20%, rgba(200,200,200,0.05), transparent 60%);
+}
+
+body.dark-mode .login-box,
+body.dark-mode .content{
+  background: linear-gradient(180deg, rgba(20,20,20,0.84), rgba(8,8,8,0.76));
+  border: 2px solid rgba(255,255,255,0.16);
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.06),
+    0 0 28px rgba(120,120,120,0.08),
+    0 12px 30px rgba(0,0,0,0.78);
+}
+
+body.dark-mode input,
+body.dark-mode textarea{
+  border: 2px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: white;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder{
+  color: rgba(255,255,255,0.62);
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus{
+  border-color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08), 0 0 18px rgba(255,255,255,0.08);
+}
+
+body.dark-mode .portfolio-title{
+  background: linear-gradient(90deg,#e0e0e0,#8e8e8e,#555,#e0e0e0);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 0 16px rgba(255,255,255,0.12);
+}
+
+body.dark-mode button{
+  background: linear-gradient(90deg,#d8d8d8,#8f8f8f,#525252,#8f8f8f,#d8d8d8);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 0 14px rgba(255,255,255,0.10),
+    0 0 18px rgba(120,120,120,0.10);
+}
+
+body.dark-mode button:hover{
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.18),
+    0 0 30px rgba(130,130,130,0.14);
+}
+
+body.dark-mode .profile-img{
+  border: 2px solid rgba(255,255,255,0.20);
+  box-shadow: 0 0 14px rgba(255,255,255,0.10);
+}
+
+body.dark-mode video{
+  border: 2px solid rgba(255,255,255,0.18);
+}
+
+body.dark-mode .progress-bar{
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+body.dark-mode .progress-fill{
+  background: linear-gradient(90deg,#dcdcdc,#9c9c9c,#575757);
+}
+
+body.dark-mode .project{
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.14);
+  color: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.08);
+}
+
+body.dark-mode .project:hover{
+  box-shadow: 0 0 18px rgba(255,255,255,0.14);
+}
+
+body.dark-mode .project img{
+  border: 2px solid rgba(255,255,255,0.18);
+}
+
+body.dark-mode .project-images-grid img{
+  border: 2px solid rgba(255,255,255,0.18);
+}
+
+/* =======================
+   MOBILE FOR TOP BUTTONS
+======================= */
+@media (max-width: 600px){
+  .top-controls{
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .top-controls button{
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* =======================
+   GLOBAL CONTROL BUTTONS
+======================= */
+
+.top-controls{
+position:fixed;
+top:20px;
+right:20px;
+display:flex;
+gap:10px;
+z-index:9999;
+}
+
+/* LOW DETAIL MODE */
+
+body.low-detail::before,
+body.low-detail::after{
+animation:none !important;
+filter:blur(10px) !important;
+opacity:0.35 !important;
+}
+
+/* DARK MODE */
+
+body.dark-mode{
+background: radial-gradient(circle at 50% 60%, #0a0a0a 0%, #050505 60%, #000000 100%);
+}
+
+body.dark-mode .login-box,
+body.dark-mode .content{
+background:#111;
+border:2px solid #444;
+}
+
+body.dark-mode input,
+body.dark-mode textarea{
+background:#111;
+border:1px solid #555;
+color:white;
+}
